@@ -34,14 +34,15 @@ node src/cli.mjs --version
 - [Releases](https://github.com/mastermuetze/cra-release-evidence-demo/releases)
 - [Actions](https://github.com/mastermuetze/cra-release-evidence-demo/actions)
 
-## Verified `v0.1.0` result
+## Verified `v0.1.1` result
 
-- [Release workflow run](https://github.com/mastermuetze/cra-release-evidence-demo/actions/runs/30742421348): passed
+- [Release workflow run](https://github.com/mastermuetze/cra-release-evidence-demo/actions/runs/30743346821): passed
 - Configured evidence status: `complete`, with zero gaps
 - SBOM source relation: declared commit matches the release commit
 - Package manifest: all SHA-256 entries verified
-- [Download the evidence package](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.0/cra-evidence-v0.1.0.zip)
-- [Download its SHA-256 checksum](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.0/cra-evidence-v0.1.0.zip.sha256)
+- [Download the evidence package](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.1/cra-evidence-v0.1.1.zip)
+- [Download its SHA-256 checksum](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.1/cra-evidence-v0.1.1.zip.sha256)
+- [Previous verified `v0.1.0` demo release](https://github.com/mastermuetze/cra-release-evidence-demo/releases/tag/v0.1.0)
 
 These results describe configured technical completeness for this demo release only. They are not a legal compliance result.
 
