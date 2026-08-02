@@ -43,10 +43,10 @@ jobs:
 
       - name: Build the versioned evidence package
         id: evidence
-        uses: mastermuetze/cra-release-evidence@3166f1771bb9e42ef8b085acf6fae9f53e7f390a
+        uses: mastermuetze/cra-release-evidence@137386fa91f3ee81b961e67f2fa315f4333803a0
         with:
           release-tag: ${{ github.event.release.tag_name }}
-          previous-tag: v0.0.0
+          previous-tag: v0.1.0
           sbom-path: reports/sbom.cdx.json
           sbom-source-sha: ${{ steps.release.outputs.sha }}
           evidence-paths: |
