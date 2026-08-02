@@ -22,10 +22,16 @@ jobs:
       - name: Install the locked demo package
         run: npm ci --ignore-scripts
 
+      - name: Record the checked-out release commit
+        id: release
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Produce JUnit test evidence
         run: |
           mkdir -p reports
-          node --test --test-reporter=junit > reports/junit.xml
+          npm test
+          node --test --test-reporter=junit > reports/node-junit.xml
+          node scripts/normalize-node-junit.mjs reports/node-junit.xml reports/junit.xml
 
       - name: Produce CycloneDX SBOM
         run: npm sbom --sbom-format=cyclonedx > reports/sbom.cdx.json
@@ -42,9 +48,9 @@ jobs:
           release-tag: ${{ github.event.release.tag_name }}
           previous-tag: v0.0.0
           sbom-path: reports/sbom.cdx.json
+          sbom-source-sha: ${{ steps.release.outputs.sha }}
           evidence-paths: |
             reports/junit.xml
-            reports/npm-audit.json
             reports/npm-audit.sarif
           required-evidence: sbom,test-results,security-scan,change-summary
           include-raw-reports: false
@@ -57,6 +63,7 @@ jobs:
           test -f "${{ steps.evidence.outputs.json-path }}"
           test -f "${{ steps.evidence.outputs.package-dir }}/changes.json"
           test -f "${{ steps.evidence.outputs.package-dir }}/MANIFEST.sha256"
+          (cd "${{ steps.evidence.outputs.package-dir }}" && sha256sum --check MANIFEST.sha256)
 
       - name: Retain the verified package
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

@@ -2,10 +2,12 @@
 
 import { pathToFileURL } from "node:url";
 
+import { formatReleaseLabel } from "@cra-release-evidence-demo/release-format";
+
 export const VERSION = "0.1.0";
 
 export function buildReleaseMessage({ version = VERSION, channel = "stable" } = {}) {
-  return `evidence-demo ${version} (${channel})`;
+  return formatReleaseLabel(version, channel);
 }
 
 function run(argv) {
