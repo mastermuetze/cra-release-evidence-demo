@@ -1,0 +1,18 @@
+{
+  "name": "cra-release-evidence-demo-cli",
+  "version": "0.0.0",
+  "description": "Small installable CLI used to exercise CRA Release Evidence on a real GitHub release.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "evidence-demo": "./src/cli.mjs"
+  },
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

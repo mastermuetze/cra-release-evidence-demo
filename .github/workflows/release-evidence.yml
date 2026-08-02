@@ -1,0 +1,67 @@
+name: Release evidence smoke test
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    name: Build release evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the released revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install the locked demo package
+        run: npm ci --ignore-scripts
+
+      - name: Produce JUnit test evidence
+        run: |
+          mkdir -p reports
+          node --test --test-reporter=junit > reports/junit.xml
+
+      - name: Produce CycloneDX SBOM
+        run: npm sbom --sbom-format=cyclonedx > reports/sbom.cdx.json
+
+      - name: Produce npm audit security evidence
+        run: |
+          npm audit --json > reports/npm-audit.json
+          node scripts/npm-audit-to-sarif.mjs reports/npm-audit.json reports/npm-audit.sarif
+
+      - name: Build the versioned evidence package
+        id: evidence
+        uses: mastermuetze/cra-release-evidence@3166f1771bb9e42ef8b085acf6fae9f53e7f390a
+        with:
+          release-tag: ${{ github.event.release.tag_name }}
+          previous-tag: v0.0.0
+          sbom-path: reports/sbom.cdx.json
+          evidence-paths: |
+            reports/junit.xml
+            reports/npm-audit.json
+            reports/npm-audit.sarif
+          required-evidence: sbom,test-results,security-scan,change-summary
+          include-raw-reports: false
+          fail-on-gaps: true
+
+      - name: Verify the expected package files
+        shell: bash
+        run: |
+          test -f "${{ steps.evidence.outputs.markdown-path }}"
+          test -f "${{ steps.evidence.outputs.json-path }}"
+          test -f "${{ steps.evidence.outputs.package-dir }}/changes.json"
+          test -f "${{ steps.evidence.outputs.package-dir }}/MANIFEST.sha256"
+
+      - name: Retain the verified package
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: cra-evidence-${{ github.event.release.tag_name }}
+          path: ${{ steps.evidence.outputs.package-dir }}
+          if-no-files-found: error
+          retention-days: 90
