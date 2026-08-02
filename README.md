@@ -1,5 +1,7 @@
 # CRA Release Evidence demo
 
+[![Release evidence smoke test](https://github.com/mastermuetze/cra-release-evidence-demo/actions/workflows/release-evidence.yml/badge.svg)](https://github.com/mastermuetze/cra-release-evidence-demo/actions/workflows/release-evidence.yml)
+
 This public repository is a small installable Node.js CLI used to exercise [CRA Release Evidence](https://github.com/mastermuetze/cra-release-evidence) on a real GitHub release.
 
 It is a technical demonstration, not a commercial product, CRA scanner, legal opinion, conformity assessment, or guarantee of compliance.
@@ -32,7 +34,16 @@ node src/cli.mjs --version
 - [Releases](https://github.com/mastermuetze/cra-release-evidence-demo/releases)
 - [Actions](https://github.com/mastermuetze/cra-release-evidence-demo/actions)
 
-The first successful evidence package will be attached to the corresponding demo release after its contents and manifest have been checked.
+## Verified `v0.1.0` result
+
+- [Release workflow run](https://github.com/mastermuetze/cra-release-evidence-demo/actions/runs/30742421348): passed
+- Configured evidence status: `complete`, with zero gaps
+- SBOM source relation: declared commit matches the release commit
+- Package manifest: all SHA-256 entries verified
+- [Download the evidence package](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.0/cra-evidence-v0.1.0.zip)
+- [Download its SHA-256 checksum](https://github.com/mastermuetze/cra-release-evidence-demo/releases/download/v0.1.0/cra-evidence-v0.1.0.zip.sha256)
+
+These results describe configured technical completeness for this demo release only. They are not a legal compliance result.
 
 ## Evidence boundaries
 
