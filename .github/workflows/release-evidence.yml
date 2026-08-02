@@ -43,15 +43,16 @@ jobs:
 
       - name: Build the versioned evidence package
         id: evidence
-        uses: mastermuetze/cra-release-evidence@137386fa91f3ee81b961e67f2fa315f4333803a0
+        uses: mastermuetze/cra-release-evidence@625729f34a9ab8fcdecff1ab9ab2b8755b4ab00d
         with:
           release-tag: ${{ github.event.release.tag_name }}
-          previous-tag: v0.1.0
+          previous-tag: v0.1.1
           sbom-path: reports/sbom.cdx.json
           sbom-source-sha: ${{ steps.release.outputs.sha }}
           evidence-paths: |
             reports/junit.xml
             reports/npm-audit.sarif
+          evidence-source-sha: ${{ steps.release.outputs.sha }}
           required-evidence: sbom,test-results,security-scan,change-summary
           include-raw-reports: false
           fail-on-gaps: true

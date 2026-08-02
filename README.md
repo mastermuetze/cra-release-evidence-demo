@@ -8,15 +8,16 @@ It is a technical demonstration, not a commercial product, CRA scanner, legal op
 
 ## What the release workflow proves
 
-For release `v0.1.1`, the repository workflow:
+For release `v0.1.2`, the repository workflow:
 
 1. checks out the exact release tag with full Git history;
 2. runs the CLI tests and writes JUnit XML;
 3. generates a CycloneDX SBOM with npm;
 4. runs `npm audit` and converts its result to SARIF without changing the finding severity;
-5. compares the release to the explicit previous release tag `v0.1.0`;
-6. invokes CRA Release Evidence at immutable merged-`main` commit `137386fa91f3ee81b961e67f2fa315f4333803a0`;
-7. verifies and retains the Markdown/JSON evidence package as a workflow artifact.
+5. compares the release to the explicit previous release tag `v0.1.1`;
+6. declares the producing commit for the SBOM and collected test/security reports;
+7. invokes CRA Release Evidence at immutable, CI-verified commit `625729f34a9ab8fcdecff1ab9ab2b8755b4ab00d`;
+8. verifies and retains the Markdown/JSON evidence package as a workflow artifact.
 
 The job has only `contents: read`. Raw test and security reports are not copied into the evidence package. The generated SBOM is copied because it is part of the versioned evidence record.
 

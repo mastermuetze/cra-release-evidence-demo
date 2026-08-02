@@ -1,6 +1,6 @@
 {
   "name": "cra-release-evidence-demo-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Small installable CLI used to exercise CRA Release Evidence on a real GitHub release.",
   "private": true,
   "type": "module",

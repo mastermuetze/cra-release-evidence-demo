@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+- Declare the producing release commit for both the SBOM and collected test/security evidence.
+- Reject declared evidence from a different or unresolvable producer revision.
+- Exercise CRA Release Evidence at an immutable, CI-verified commit.
+
 ## 0.1.1
 
 - Pin the smoke test to the merged CRA Release Evidence `main` commit.
